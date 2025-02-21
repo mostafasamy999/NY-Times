@@ -12,6 +12,7 @@ class ArticleListItem extends StatelessWidget {
     required this.article,
     required this.onTap,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -24,7 +25,7 @@ class ArticleListItem extends StatelessWidget {
             _buildArticleImage(),
             const SizedBox(width: 12),
             _buildArticleTextContent(),
-            const Icon(Icons.chevron_right, color: Colors.grey),
+            const Icon(Icons.chevron_right, size:32,color: Colors.grey),
           ],
         ),
       ),
@@ -63,7 +64,17 @@ class ArticleListItem extends StatelessWidget {
           const SizedBox(height: 4),
           _buildAuthorText(),
           const SizedBox(height: 4),
-          _buildDateText(),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.calendar_today, size: 14),
+                const SizedBox(width: 4),
+                _buildDateText(),
+              ],
+            ),
+          ),
         ],
       ),
     );
