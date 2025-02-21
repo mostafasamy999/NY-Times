@@ -105,22 +105,6 @@ flutter run
 - Video kit integration
 - Adaptive layout support
 
-### Web
-- Responsive grid layout
-- Progressive Web App support
-- Browser-optimized video playback
-
-## 🧪 Testing
-
-The project includes various types of tests:
-
-```bash
-# Run unit tests
-flutter test
-
-# Run integration tests
-flutter test integration_test
-```
 
 ## 🔄 State Management
 
