@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ny_times/presentation/pages/detail_page/article_detail_screen.dart';
+
 import 'package:ny_times/presentation/pages/home_list_page/news_listing_screen.dart';
 import 'package:ny_times/presentation/pages/news_cubit.dart';
 

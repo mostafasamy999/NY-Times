@@ -19,78 +19,96 @@ class NewsListingScreen extends StatefulWidget {
 }
 
 class _NewsListingScreenState extends State<NewsListingScreen> {
+  bool _isSearchExpanded = false;
+  final TextEditingController _searchController = TextEditingController();
+
   @override
-  void initState() {
-    super.initState();
-    _loadNews();
-  }
-
-  void _loadNews() {
-    context.read<NewsCubit>().fetchNews();
-  }
-
-  void _navigateToArticleDetail(Article article) {
-    Navigator.pushNamed(
-      context,
-      AppRouter.articleDetail,
-      arguments: article,
-    );
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NY Times Most Popular'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {
-            },
-          ),
-        ],
-      ),
+      appBar: _buildAppBar(context),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return RefreshIndicator(
             onRefresh: () async {
               context.read<NewsCubit>().refresh();
             },
-            child: _buildNewsList(constraints),
+            child: _buildNewsList(context, constraints),
           );
         },
       ),
     );
   }
 
-  Widget _buildNewsList(BoxConstraints constraints) {
-    final isLargeScreen = constraints.maxWidth > 600;
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: _isSearchExpanded
+          ? TextField(
+        controller: _searchController,
+        autofocus: true,
+        decoration: const InputDecoration(
+          hintText: 'Search articles...',
+          border: InputBorder.none,
+        ),
+        onChanged: (query) {
+          context.read<NewsCubit>().searchArticles(query);
+        },
+      )
+          : const Text('NY Times Most Popular'),
+      actions: [
+        IconButton(
+          icon: Icon(_isSearchExpanded ? Icons.close : Icons.search),
+          onPressed: () {
+            setState(() {
+              _isSearchExpanded = !_isSearchExpanded;
+              if (!_isSearchExpanded) {
+                _searchController.clear();
+                context.read<NewsCubit>().clearSearch();
+              }
+            });
+          },
+        ),
+      ],
+    );
+  }
 
+  Widget _buildNewsList(BuildContext context, BoxConstraints constraints) {
     return BlocBuilder<NewsCubit, NewsState>(
       builder: (context, state) {
-        if (state is NewsInitial || state is NewsLoading) {
+        if (state is NewsLoading) {
           return const LoadingView();
         } else if (state is NewsLoaded) {
-          return _buildArticleListView(state.articles, isLargeScreen, constraints);
+          return _buildArticleListView(
+            state.filteredArticles,
+            constraints.maxWidth > 600,
+            constraints,
+          );
         } else if (state is NewsEmpty) {
           return EmptyView(
             message: state.message,
-            onRefresh: _loadNews,
+            onRefresh: () => context.read<NewsCubit>().refresh(),
           );
         } else if (state is NewsError) {
           return ErrorView(
             errorMessage: state.message,
-            onRetry: _loadNews,
+            onRetry: () => context.read<NewsCubit>().refresh(),
           );
-        } else {
-          return const SizedBox();
         }
+        return const LoadingView();
       },
+    );
+  }
+
+  void _navigateToArticleDetail(BuildContext context, Article article) {
+    Navigator.pushNamed(
+      context,
+      AppRouter.articleDetail,
+      arguments: article,
     );
   }
 
@@ -102,8 +120,7 @@ class _NewsListingScreenState extends State<NewsListingScreen> {
           child: _buildResponsiveLayout(articles, constraints),
         ),
       );
-    }
-    else {
+    } else {
       return ListView.separated(
         padding: const EdgeInsets.all(16),
         itemCount: articles.length,
@@ -112,12 +129,13 @@ class _NewsListingScreenState extends State<NewsListingScreen> {
           final article = articles[index];
           return ArticleListItem(
             article: article,
-            onTap: () => _navigateToArticleDetail(article),
+            onTap: () => _navigateToArticleDetail(context, article),
           );
         },
       );
     }
   }
+
 
   Widget _buildResponsiveLayout(List<Article> articles, BoxConstraints constraints) {
     final width = constraints.maxWidth;
@@ -144,7 +162,7 @@ class _NewsListingScreenState extends State<NewsListingScreen> {
           return Card(
             elevation: 2,
             child: InkWell(
-              onTap: () => _navigateToArticleDetail(article),
+              onTap: () => _navigateToArticleDetail(context,article),
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: _buildGridArticleItem(article),
@@ -163,7 +181,7 @@ class _NewsListingScreenState extends State<NewsListingScreen> {
           final article = articles[index];
           return ArticleListItem(
             article: article,
-            onTap: () => _navigateToArticleDetail(article),
+            onTap: () => _navigateToArticleDetail(context,article),
           );
         },
       );

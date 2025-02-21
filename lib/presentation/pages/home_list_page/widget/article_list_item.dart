@@ -94,7 +94,7 @@ class ArticleListItem extends StatelessWidget {
 
   Widget _buildAuthorText() {
     return Text(
-      'By ${article.author}',
+      '${article.author}',
       style: TextStyle(
         color: Colors.grey[700],
         fontSize: 12,
