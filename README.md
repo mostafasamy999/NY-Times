@@ -79,7 +79,7 @@ lib/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/ny-times.git
+git clone https://github.com/mostafasamy999/NY-Times.git
 ```
 
 2. Install dependencies
