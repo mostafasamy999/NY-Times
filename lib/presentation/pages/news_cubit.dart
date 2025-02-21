@@ -1,10 +1,8 @@
-
 import '../../core/error/error_handler.dart';
 import '../../domain/entities/article.dart';
 import '../../domain/usecases/get_articles.dart';
 import 'news_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class NewsCubit extends Cubit<NewsState> {
   final GetNewsUseCase getNewsUseCase;
@@ -25,7 +23,8 @@ class NewsCubit extends Cubit<NewsState> {
           emit(NewsLoaded(
             articles,
             searchQuery: currentState.searchQuery,
-            filteredArticles: _filterArticles(articles, currentState.searchQuery),
+            filteredArticles:
+                _filterArticles(articles, currentState.searchQuery),
           ));
         } else {
           emit(NewsLoaded(articles, filteredArticles: articles));
@@ -51,10 +50,11 @@ class NewsCubit extends Cubit<NewsState> {
 
   List<Article> _filterArticles(List<Article> articles, String query) {
     if (query.isEmpty) return articles;
-    return articles.where((article) =>
-    article.title.toLowerCase().contains(query.toLowerCase()) ||
-        article.author.toLowerCase().contains(query.toLowerCase())
-    ).toList();
+    return articles
+        .where((article) =>
+            article.title.toLowerCase().contains(query.toLowerCase()) ||
+            article.author.toLowerCase().contains(query.toLowerCase()))
+        .toList();
   }
 
   void clearSearch() {
