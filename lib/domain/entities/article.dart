@@ -15,13 +15,11 @@ class Article {
   });
 
   factory Article.fromJson(Map<String, dynamic> json) {
-    // Extract author from byline
     String authorName = '';
     if (json['byline'] != null && json['byline']['original'] != null) {
       authorName = json['byline']['original'];
     }
 
-    // Extract image URL from multimedia
     String imageUrl = '';
     if (json['multimedia'] != null && (json['multimedia'] as List).isNotEmpty) {
       var multimedia = json['multimedia'] as List;
