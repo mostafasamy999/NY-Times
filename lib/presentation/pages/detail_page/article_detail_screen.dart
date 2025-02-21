@@ -33,46 +33,48 @@ class ArticleDetailScreen extends StatelessWidget {
     final formattedDate = _formatDate(article.date);
     final shortDescription = _getShortDescription(article.summary);
 
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('NY Times Most Popular'),
       ),
       body: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isLargeScreen = constraints.maxWidth > 600;
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isLargeScreen = constraints.maxWidth > 600;
 
-              return SingleChildScrollView(
-                controller: _scrollController,
-                padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
-                child: Center(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: isLargeScreen ? 800 : double.infinity,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildArticleTitle(article.title, isLargeScreen),
-                        SizedBox(height: isLargeScreen ? 16 : 12),
-                        _buildShortDescription(shortDescription, context, isLargeScreen),
-                        SizedBox(height: isLargeScreen ? 24 : 16),
-                        _buildAuthorAndDateRow(formattedAuthor, formattedDate, context, isLargeScreen),
-                        SizedBox(height: isLargeScreen ? 28 : 20),
-                        _buildFeaturedImage(article.imageUrl, isLargeScreen),
-                        const SizedBox(height: 8),
-                        _buildSourceAttribution(isLargeScreen),
-                        SizedBox(height: isLargeScreen ? 32 : 24),
-                        _buildArticleSummary(article.summary, isLargeScreen),
-                      ],
-                    ),
+            return SingleChildScrollView(
+              controller: _scrollController,
+              padding: EdgeInsets.all(isLargeScreen ? 24.0 : 16.0),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: isLargeScreen ? 800 : double.infinity,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildArticleTitle(article.title, isLargeScreen),
+                      SizedBox(height: isLargeScreen ? 16 : 12),
+                      _buildShortDescription(
+                          shortDescription, context, isLargeScreen),
+                      SizedBox(height: isLargeScreen ? 24 : 16),
+                      _buildAuthorAndDateRow(formattedAuthor, formattedDate,
+                          context, isLargeScreen),
+                      SizedBox(height: isLargeScreen ? 28 : 20),
+                      _buildFeaturedImage(article.imageUrl, isLargeScreen),
+                      const SizedBox(height: 8),
+                      _buildSourceAttribution(isLargeScreen),
+                      SizedBox(height: isLargeScreen ? 32 : 24),
+                      _buildArticleSummary(article.summary, isLargeScreen),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
-        // floatingActionButton: _buildScrollToTopButton(),
+      ),
+      // floatingActionButton: _buildScrollToTopButton(),
     );
   }
 
@@ -87,7 +89,8 @@ class ArticleDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildShortDescription(String description, BuildContext context, bool isLargeScreen) {
+  Widget _buildShortDescription(
+      String description, BuildContext context, bool isLargeScreen) {
     return Text(
       description,
       style: TextStyle(
@@ -98,7 +101,8 @@ class ArticleDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAuthorAndDateRow(String author, String date, BuildContext context, bool isLargeScreen) {
+  Widget _buildAuthorAndDateRow(
+      String author, String date, BuildContext context, bool isLargeScreen) {
     if (isLargeScreen) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,7 +126,8 @@ class ArticleDetailScreen extends StatelessWidget {
     }
   }
 
-  Widget _buildAuthorInfo(String author, BuildContext context, bool isLargeScreen) {
+  Widget _buildAuthorInfo(
+      String author, BuildContext context, bool isLargeScreen) {
     return Row(
       children: [
         _buildAuthorAvatar(author, context, isLargeScreen),
@@ -142,7 +147,8 @@ class ArticleDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAuthorAvatar(String author, BuildContext context, bool isLargeScreen) {
+  Widget _buildAuthorAvatar(
+      String author, BuildContext context, bool isLargeScreen) {
     return CircleAvatar(
       radius: isLargeScreen ? 20 : 16,
       backgroundColor: Theme.of(context).primaryColor,
@@ -181,7 +187,8 @@ class ArticleDetailScreen extends StatelessWidget {
       width: double.infinity,
       height: isLargeScreen ? 400 : 200,
       fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) => _buildImagePlaceholder(isLargeScreen),
+      errorBuilder: (context, error, stackTrace) =>
+          _buildImagePlaceholder(isLargeScreen),
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
         return _buildImageLoadingIndicator(loadingProgress, isLargeScreen);
@@ -194,11 +201,13 @@ class ArticleDetailScreen extends StatelessWidget {
       height: isLargeScreen ? 400 : 200,
       width: double.infinity,
       color: Colors.grey[300],
-      child: Icon(Icons.image, size: isLargeScreen ? 64 : 48, color: Colors.grey),
+      child:
+          Icon(Icons.image, size: isLargeScreen ? 64 : 48, color: Colors.grey),
     );
   }
 
-  Widget _buildImageLoadingIndicator(ImageChunkEvent loadingProgress, bool isLargeScreen) {
+  Widget _buildImageLoadingIndicator(
+      ImageChunkEvent loadingProgress, bool isLargeScreen) {
     return Container(
       height: isLargeScreen ? 400 : 200,
       color: Colors.grey[300],
@@ -206,7 +215,7 @@ class ArticleDetailScreen extends StatelessWidget {
         child: CircularProgressIndicator(
           value: loadingProgress.expectedTotalBytes != null
               ? loadingProgress.cumulativeBytesLoaded /
-              loadingProgress.expectedTotalBytes!
+                  loadingProgress.expectedTotalBytes!
               : null,
         ),
       ),
@@ -228,7 +237,7 @@ class ArticleDetailScreen extends StatelessWidget {
 
   Widget _buildArticleSummary(String summary, bool isLargeScreen) {
     return Text(
-      summary,
+      '$summary $summary $summary',
       style: TextStyle(
         fontSize: isLargeScreen ? 18 : 16,
         height: 1.6,

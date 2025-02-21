@@ -10,7 +10,7 @@ class ApiService {
   Future<NewsResponse> getNews() async {//dynamic
     try {
       final response = await http.get(
-        Uri.parse(ApiConstants.getArticlesUrl('election', page: 0)),
+        Uri.parse(ApiConstants.getArticlesUrl('election', page: 3)),
       ).timeout(
         const Duration(seconds: 15),
         onTimeout: () => throw NetworkTimeoutException('Request timed out'),

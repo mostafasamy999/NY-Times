@@ -1,0 +1,31 @@
+Based on the documentation provided, here are all the available filter query fields (search keywords) that can be used with the NYT Article Search API:
+
+### Filter Query Fields
+1. `source` - The originating source of the article (e.g., "The New York Times", "AP", "Reuters")
+2. `news_desk` - The desk/department that produced the article (e.g., "Sports", "Foreign")
+3. `section_name` - The section the article appears in
+4. `subsection_name` - The subsection the article appears in
+5. `document_type` - The type of document
+6. `type_of_material` - The type of material (e.g., "News", "Editorial")
+7. `day_of_week` - The day of the week the article was published
+8. `pub_month` - Publication month
+9. `pub_year` - Publication year
+10. `ingredients` - Ingredients mentioned in the article
+11. `glocations` - Geographic locations mentioned in the article
+12. `print_page` - The page number in the print newspaper
+13. `print_section` - The section in the print newspaper
+
+### Additional Parameters
+1. `q` - Main query term
+2. `begin_date` - Start date (format: YYYYMMDD)
+3. `end_date` - End date (format: YYYYMMDD)
+4. `facet_fields` - Fields to get facet counts for
+5. `facet` - Enable/disable facets (true/false)
+6. `facet_filter` - Whether facets should respect filters (true/false)
+7. `fl` - Fields to include in the response
+8. `page` - Page number for pagination
+9. `sort` - Sort order (e.g., "oldest", "newest")
+
+Note that when using the `fq` parameter without specifying a field, the search will look for matches across the body, headline, and byline of articles.
+
+Would you like examples of how to use any of these specific search keywords in your queries?
