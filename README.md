@@ -8,8 +8,8 @@ A modern, cross-platform news application that delivers New York City news artic
 
 
 
-<!-- Uploading "WhatsApp Video 2025-02-21 at 16.21.08_2dad6e92.mp4"... -->
-
+[<!-- Uploading "WhatsApp Video 2025-02-21 at 16.21.08_2dad6e92.mp4"... -->
+](https://github.com/user-attachments/assets/8db95029-0807-4a04-9100-8a5a8ae194d2)
 
 ## 🌟 Features
 
