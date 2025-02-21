@@ -6,6 +6,11 @@ A modern, cross-platform news application that delivers New York City news artic
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-green)
 ![State Management](https://img.shields.io/badge/State%20Management-Cubit-purple)
 
+
+
+<!-- Uploading "WhatsApp Video 2025-02-21 at 16.21.08_2dad6e92.mp4"... -->
+
+
 ## 🌟 Features
 
 - **Rich Content Delivery**
