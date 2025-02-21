@@ -155,15 +155,14 @@ class ShimmerArticleCard extends StatelessWidget {
   }
 }
 ```
-
 ## 📚 Dependencies
 
-- `flutter_bloc`: ^8.0.0
-- `get_it`: ^7.0.0
-- `dio`: ^5.0.0
+- `flutter_bloc`: ^9.0.0
+- `http`: ^1.3.0
+- `get_it`: ^8.0.3
+- `intl`: ^0.20.2
+- `share_plus`: ^10.1.4
 - `shimmer`: ^3.0.0
-- `cached_network_image`: ^3.0.0
-- `video_player`: ^2.0.0
 
 ## 🤝 Contributing
 
