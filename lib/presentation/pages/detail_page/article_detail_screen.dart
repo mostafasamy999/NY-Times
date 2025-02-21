@@ -19,7 +19,6 @@ class ArticleDetailScreen extends StatelessWidget {
   }
 
   String _formatAuthor(String byline) {
-    // Remove "By " prefix if present
     return byline.startsWith('By ') ? byline.substring(3) : byline;
   }
 

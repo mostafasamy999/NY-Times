@@ -1,4 +1,5 @@
 class NewsResponse {
+
   String? status;
   String? copyright;
   Response? response;
@@ -6,53 +7,68 @@ class NewsResponse {
   NewsResponse({this.status, this.copyright, this.response});
 
   NewsResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    copyright = json['copyright'];
-    response = json['response'] != null
-        ? new Response.fromJson(json['response'])
-        : null;
+  status = json["status"];
+  copyright = json["copyright"];
+  response = json["response"] == null ? null : Response.fromJson(json["response"]);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['copyright'] = this.copyright;
-    if (this.response != null) {
-      data['response'] = this.response!.toJson();
-    }
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["status"] = status;
+  _data["copyright"] = copyright;
+  if(response != null) {
+  _data["response"] = response?.toJson();
   }
-}
+  return _data;
+  }
+  }
 
-class Response {
+  class Response {
   List<Docs>? docs;
   Meta? meta;
 
   Response({this.docs, this.meta});
 
   Response.fromJson(Map<String, dynamic> json) {
-    if (json['docs'] != null) {
-      docs = <Docs>[];
-      json['docs'].forEach((v) {
-        docs!.add(new Docs.fromJson(v));
-      });
-    }
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+  docs = json["docs"] == null ? null : (json["docs"] as List).map((e) => Docs.fromJson(e)).toList();
+  meta = json["meta"] == null ? null : Meta.fromJson(json["meta"]);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.docs != null) {
-      data['docs'] = this.docs!.map((v) => v.toJson()).toList();
-    }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
-    }
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  if(docs != null) {
+  _data["docs"] = docs?.map((e) => e.toJson()).toList();
   }
-}
+  if(meta != null) {
+  _data["meta"] = meta?.toJson();
+  }
+  return _data;
+  }
+  }
 
-class Docs {
+  class Meta {
+  int? hits;
+  int? offset;
+  int? time;
+
+  Meta({this.hits, this.offset, this.time});
+
+  Meta.fromJson(Map<String, dynamic> json) {
+  hits = json["hits"];
+  offset = json["offset"];
+  time = json["time"];
+  }
+
+  Map<String, dynamic> toJson() {
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["hits"] = hits;
+  _data["offset"] = offset;
+  _data["time"] = time;
+  return _data;
+  }
+  }
+
+  class Docs {
   String? abstract;
   String? webUrl;
   String? snippet;
@@ -65,250 +81,127 @@ class Docs {
   String? documentType;
   String? newsDesk;
   String? sectionName;
-  String? subsectionName;
   Byline? byline;
   String? typeOfMaterial;
-  String? sId;
+  String? id;
   int? wordCount;
   String? uri;
 
-  Docs(
-      {this.abstract,
-        this.webUrl,
-        this.snippet,
-        this.leadParagraph,
-        this.source,
-        this.multimedia,
-        this.headline,
-        this.keywords,
-        this.pubDate,
-        this.documentType,
-        this.newsDesk,
-        this.sectionName,
-        this.subsectionName,
-        this.byline,
-        this.typeOfMaterial,
-        this.sId,
-        this.wordCount,
-        this.uri});
+  Docs({this.abstract, this.webUrl, this.snippet, this.leadParagraph, this.source, this.multimedia, this.headline, this.keywords, this.pubDate, this.documentType, this.newsDesk, this.sectionName, this.byline, this.typeOfMaterial, this.id, this.wordCount, this.uri});
 
   Docs.fromJson(Map<String, dynamic> json) {
-    abstract = json['abstract'];
-    webUrl = json['web_url'];
-    snippet = json['snippet'];
-    leadParagraph = json['lead_paragraph'];
-    source = json['source'];
-    if (json['multimedia'] != null) {
-      multimedia = <Multimedia>[];
-      json['multimedia'].forEach((v) {
-        multimedia!.add(new Multimedia.fromJson(v));
-      });
-    }
-    headline = json['headline'] != null
-        ? new Headline.fromJson(json['headline'])
-        : null;
-    if (json['keywords'] != null) {
-      keywords = <Keywords>[];
-      json['keywords'].forEach((v) {
-        keywords!.add(new Keywords.fromJson(v));
-      });
-    }
-    pubDate = json['pub_date'];
-    documentType = json['document_type'];
-    newsDesk = json['news_desk'];
-    sectionName = json['section_name'];
-    subsectionName = json['subsection_name'];
-    byline =
-    json['byline'] != null ? new Byline.fromJson(json['byline']) : null;
-    typeOfMaterial = json['type_of_material'];
-    sId = json['_id'];
-    wordCount = json['word_count'];
-    uri = json['uri'];
+  abstract = json["abstract"];
+  webUrl = json["web_url"];
+  snippet = json["snippet"];
+  leadParagraph = json["lead_paragraph"];
+  source = json["source"];
+  multimedia = json["multimedia"] == null ? null : (json["multimedia"] as List).map((e) => Multimedia.fromJson(e)).toList();
+  headline = json["headline"] == null ? null : Headline.fromJson(json["headline"]);
+  keywords = json["keywords"] == null ? null : (json["keywords"] as List).map((e) => Keywords.fromJson(e)).toList();
+  pubDate = json["pub_date"];
+  documentType = json["document_type"];
+  newsDesk = json["news_desk"];
+  sectionName = json["section_name"];
+  byline = json["byline"] == null ? null : Byline.fromJson(json["byline"]);
+  typeOfMaterial = json["type_of_material"];
+  id = json["_id"];
+  wordCount = json["word_count"];
+  uri = json["uri"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['abstract'] = this.abstract;
-    data['web_url'] = this.webUrl;
-    data['snippet'] = this.snippet;
-    data['lead_paragraph'] = this.leadParagraph;
-    data['source'] = this.source;
-    if (this.multimedia != null) {
-      data['multimedia'] = this.multimedia!.map((v) => v.toJson()).toList();
-    }
-    if (this.headline != null) {
-      data['headline'] = this.headline!.toJson();
-    }
-    if (this.keywords != null) {
-      data['keywords'] = this.keywords!.map((v) => v.toJson()).toList();
-    }
-    data['pub_date'] = this.pubDate;
-    data['document_type'] = this.documentType;
-    data['news_desk'] = this.newsDesk;
-    data['section_name'] = this.sectionName;
-    data['subsection_name'] = this.subsectionName;
-    if (this.byline != null) {
-      data['byline'] = this.byline!.toJson();
-    }
-    data['type_of_material'] = this.typeOfMaterial;
-    data['_id'] = this.sId;
-    data['word_count'] = this.wordCount;
-    data['uri'] = this.uri;
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["abstract"] = abstract;
+  _data["web_url"] = webUrl;
+  _data["snippet"] = snippet;
+  _data["lead_paragraph"] = leadParagraph;
+  _data["source"] = source;
+  if(multimedia != null) {
+  _data["multimedia"] = multimedia?.map((e) => e.toJson()).toList();
   }
-}
+  if(headline != null) {
+  _data["headline"] = headline?.toJson();
+  }
+  if(keywords != null) {
+  _data["keywords"] = keywords?.map((e) => e.toJson()).toList();
+  }
+  _data["pub_date"] = pubDate;
+  _data["document_type"] = documentType;
+  _data["news_desk"] = newsDesk;
+  _data["section_name"] = sectionName;
+  if(byline != null) {
+  _data["byline"] = byline?.toJson();
+  }
+  _data["type_of_material"] = typeOfMaterial;
+  _data["_id"] = id;
+  _data["word_count"] = wordCount;
+  _data["uri"] = uri;
+  return _data;
+  }
+  }
 
-class Multimedia {
+  class Byline {
+  String? original;
+  List<Person>? person;
+  dynamic organization;
+
+  Byline({this.original, this.person, this.organization});
+
+  Byline.fromJson(Map<String, dynamic> json) {
+  original = json["original"];
+  person = json["person"] == null ? null : (json["person"] as List).map((e) => Person.fromJson(e)).toList();
+  organization = json["organization"];
+  }
+
+  Map<String, dynamic> toJson() {
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["original"] = original;
+  if(person != null) {
+  _data["person"] = person?.map((e) => e.toJson()).toList();
+  }
+  _data["organization"] = organization;
+  return _data;
+  }
+  }
+
+  class Person {
+  String? firstname;
+  dynamic middlename;
+  String? lastname;
+  dynamic qualifier;
+  dynamic title;
+  String? role;
+  String? organization;
   int? rank;
-  String? subtype;
-  Null? caption;
-  Null? credit;
-  String? type;
-  String? url;
-  int? height;
-  int? width;
-  Legacy? legacy;
-  String? subType;
-  String? cropName;
 
-  Multimedia(
-      {this.rank,
-        this.subtype,
-        this.caption,
-        this.credit,
-        this.type,
-        this.url,
-        this.height,
-        this.width,
-        this.legacy,
-        this.subType,
-        this.cropName});
+  Person({this.firstname, this.middlename, this.lastname, this.qualifier, this.title, this.role, this.organization, this.rank});
 
-  Multimedia.fromJson(Map<String, dynamic> json) {
-    rank = json['rank'];
-    subtype = json['subtype'];
-    caption = json['caption'];
-    credit = json['credit'];
-    type = json['type'];
-    url = json['url'];
-    height = json['height'];
-    width = json['width'];
-    legacy =
-    json['legacy'] != null ? new Legacy.fromJson(json['legacy']) : null;
-    subType = json['subType'];
-    cropName = json['crop_name'];
+  Person.fromJson(Map<String, dynamic> json) {
+  firstname = json["firstname"];
+  middlename = json["middlename"];
+  lastname = json["lastname"];
+  qualifier = json["qualifier"];
+  title = json["title"];
+  role = json["role"];
+  organization = json["organization"];
+  rank = json["rank"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['rank'] = this.rank;
-    data['subtype'] = this.subtype;
-    data['caption'] = this.caption;
-    data['credit'] = this.credit;
-    data['type'] = this.type;
-    data['url'] = this.url;
-    data['height'] = this.height;
-    data['width'] = this.width;
-    if (this.legacy != null) {
-      data['legacy'] = this.legacy!.toJson();
-    }
-    data['subType'] = this.subType;
-    data['crop_name'] = this.cropName;
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["firstname"] = firstname;
+  _data["middlename"] = middlename;
+  _data["lastname"] = lastname;
+  _data["qualifier"] = qualifier;
+  _data["title"] = title;
+  _data["role"] = role;
+  _data["organization"] = organization;
+  _data["rank"] = rank;
+  return _data;
   }
-}
-
-class Legacy {
-  String? xlarge;
-  int? xlargewidth;
-  int? xlargeheight;
-  String? thumbnail;
-  int? thumbnailwidth;
-  int? thumbnailheight;
-  int? widewidth;
-  int? wideheight;
-  String? wide;
-
-  Legacy(
-      {this.xlarge,
-        this.xlargewidth,
-        this.xlargeheight,
-        this.thumbnail,
-        this.thumbnailwidth,
-        this.thumbnailheight,
-        this.widewidth,
-        this.wideheight,
-        this.wide});
-
-  Legacy.fromJson(Map<String, dynamic> json) {
-    xlarge = json['xlarge'];
-    xlargewidth = json['xlargewidth'];
-    xlargeheight = json['xlargeheight'];
-    thumbnail = json['thumbnail'];
-    thumbnailwidth = json['thumbnailwidth'];
-    thumbnailheight = json['thumbnailheight'];
-    widewidth = json['widewidth'];
-    wideheight = json['wideheight'];
-    wide = json['wide'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['xlarge'] = this.xlarge;
-    data['xlargewidth'] = this.xlargewidth;
-    data['xlargeheight'] = this.xlargeheight;
-    data['thumbnail'] = this.thumbnail;
-    data['thumbnailwidth'] = this.thumbnailwidth;
-    data['thumbnailheight'] = this.thumbnailheight;
-    data['widewidth'] = this.widewidth;
-    data['wideheight'] = this.wideheight;
-    data['wide'] = this.wide;
-    return data;
-  }
-}
-
-class Headline {
-  String? main;
-  Null? kicker;
-  Null? contentKicker;
-  Null? printHeadline;
-  Null? name;
-  Null? seo;
-  Null? sub;
-
-  Headline(
-      {this.main,
-        this.kicker,
-        this.contentKicker,
-        this.printHeadline,
-        this.name,
-        this.seo,
-        this.sub});
-
-  Headline.fromJson(Map<String, dynamic> json) {
-    main = json['main'];
-    kicker = json['kicker'];
-    contentKicker = json['content_kicker'];
-    printHeadline = json['print_headline'];
-    name = json['name'];
-    seo = json['seo'];
-    sub = json['sub'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['main'] = this.main;
-    data['kicker'] = this.kicker;
-    data['content_kicker'] = this.contentKicker;
-    data['print_headline'] = this.printHeadline;
-    data['name'] = this.name;
-    data['seo'] = this.seo;
-    data['sub'] = this.sub;
-    return data;
-  }
-}
-
-class Keywords {
+  class Keywords {
   String? name;
   String? value;
   int? rank;
@@ -317,114 +210,122 @@ class Keywords {
   Keywords({this.name, this.value, this.rank, this.major});
 
   Keywords.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    value = json['value'];
-    rank = json['rank'];
-    major = json['major'];
+  name = json["name"];
+  value = json["value"];
+  rank = json["rank"];
+  major = json["major"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['value'] = this.value;
-    data['rank'] = this.rank;
-    data['major'] = this.major;
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["name"] = name;
+  _data["value"] = value;
+  _data["rank"] = rank;
+  _data["major"] = major;
+  return _data;
   }
-}
+  }
 
-class Byline {
-  String? original;
-  List<Person>? person;
-  Null? organization;
+  class Headline {
+  String? main;
+  dynamic kicker;
+  dynamic contentKicker;
+  dynamic printHeadline;
+  dynamic name;
+  dynamic seo;
+  dynamic sub;
 
-  Byline({this.original, this.person, this.organization});
+  Headline({this.main, this.kicker, this.contentKicker, this.printHeadline, this.name, this.seo, this.sub});
 
-  Byline.fromJson(Map<String, dynamic> json) {
-    original = json['original'];
-    if (json['person'] != null) {
-      person = <Person>[];
-      json['person'].forEach((v) {
-        person!.add(new Person.fromJson(v));
-      });
-    }
-    organization = json['organization'];
+  Headline.fromJson(Map<String, dynamic> json) {
+  main = json["main"];
+  kicker = json["kicker"];
+  contentKicker = json["content_kicker"];
+  printHeadline = json["print_headline"];
+  name = json["name"];
+  seo = json["seo"];
+  sub = json["sub"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['original'] = this.original;
-    if (this.person != null) {
-      data['person'] = this.person!.map((v) => v.toJson()).toList();
-    }
-    data['organization'] = this.organization;
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["main"] = main;
+  _data["kicker"] = kicker;
+  _data["content_kicker"] = contentKicker;
+  _data["print_headline"] = printHeadline;
+  _data["name"] = name;
+  _data["seo"] = seo;
+  _data["sub"] = sub;
+  return _data;
   }
-}
+  }
 
-class Person {
-  String? firstname;
-  String? middlename;
-  String? lastname;
-  Null? qualifier;
-  Null? title;
-  String? role;
-  String? organization;
+  class Multimedia {
   int? rank;
+  String? subtype;
+  dynamic caption;
+  dynamic credit;
+  String? type;
+  String? url;
+  int? height;
+  int? width;
+  Legacy? legacy;
+  String? subType;
+  String? cropName;
 
-  Person(
-      {this.firstname,
-        this.middlename,
-        this.lastname,
-        this.qualifier,
-        this.title,
-        this.role,
-        this.organization,
-        this.rank});
+  Multimedia({this.rank, this.subtype, this.caption, this.credit, this.type, this.url, this.height, this.width, this.legacy, this.subType, this.cropName});
 
-  Person.fromJson(Map<String, dynamic> json) {
-    firstname = json['firstname'];
-    middlename = json['middlename'];
-    lastname = json['lastname'];
-    qualifier = json['qualifier'];
-    title = json['title'];
-    role = json['role'];
-    organization = json['organization'];
-    rank = json['rank'];
+  Multimedia.fromJson(Map<String, dynamic> json) {
+  rank = json["rank"];
+  subtype = json["subtype"];
+  caption = json["caption"];
+  credit = json["credit"];
+  type = json["type"];
+  url = json["url"];
+  height = json["height"];
+  width = json["width"];
+  legacy = json["legacy"] == null ? null : Legacy.fromJson(json["legacy"]);
+  subType = json["subType"];
+  cropName = json["crop_name"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['firstname'] = this.firstname;
-    data['middlename'] = this.middlename;
-    data['lastname'] = this.lastname;
-    data['qualifier'] = this.qualifier;
-    data['title'] = this.title;
-    data['role'] = this.role;
-    data['organization'] = this.organization;
-    data['rank'] = this.rank;
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["rank"] = rank;
+  _data["subtype"] = subtype;
+  _data["caption"] = caption;
+  _data["credit"] = credit;
+  _data["type"] = type;
+  _data["url"] = url;
+  _data["height"] = height;
+  _data["width"] = width;
+  if(legacy != null) {
+  _data["legacy"] = legacy?.toJson();
   }
-}
+  _data["subType"] = subType;
+  _data["crop_name"] = cropName;
+  return _data;
+  }
+  }
 
-class Meta {
-  int? hits;
-  int? offset;
-  int? time;
+  class Legacy {
+  String? xlarge;
+  int? xlargewidth;
+  int? xlargeheight;
 
-  Meta({this.hits, this.offset, this.time});
+  Legacy({this.xlarge, this.xlargewidth, this.xlargeheight});
 
-  Meta.fromJson(Map<String, dynamic> json) {
-    hits = json['hits'];
-    offset = json['offset'];
-    time = json['time'];
+  Legacy.fromJson(Map<String, dynamic> json) {
+  xlarge = json["xlarge"];
+  xlargewidth = json["xlargewidth"];
+  xlargeheight = json["xlargeheight"];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['hits'] = this.hits;
-    data['offset'] = this.offset;
-    data['time'] = this.time;
-    return data;
+  final Map<String, dynamic> _data = <String, dynamic>{};
+  _data["xlarge"] = xlarge;
+  _data["xlargewidth"] = xlargewidth;
+  _data["xlargeheight"] = xlargeheight;
+  return _data;
   }
-}
+  }

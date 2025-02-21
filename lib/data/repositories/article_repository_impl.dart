@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:ny_times/domain/repositories/article_repository.dart';
 import '../../core/error/exceptions.dart';
 
@@ -18,10 +20,10 @@ class NewsRepositoryImpl extends NewsRepository{
   @override
   Future<List<Article>> getPopularNews() async {
     try {
-      final NewsResponse data = await apiService.getNews();
+      final data = await apiService.getNews();
 
-      // Use the extension method we created to convert the response
       return data.toArticles();
+
     } on NetworkException catch (e) {
       throw NetworkException('Unable to fetch news: ${e.message}');
     } on ServerException catch (e) {

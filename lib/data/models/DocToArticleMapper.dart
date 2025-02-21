@@ -5,13 +5,8 @@ import 'article_model.dart';
 
 extension ArticleMapper on Docs {
   Article toArticle() {
-    // Extract author from byline
     final authorName = byline?.original ?? 'Unknown Author';
-
-    // Extract and format image URL
     final imageUrl = _extractImageUrl();
-
-    // Format date
     final formattedDate = _formatDate();
 
     return Article(
@@ -28,7 +23,6 @@ extension ArticleMapper on Docs {
       return 'https://via.placeholder.com/400x300';
     }
 
-    // Try to find xlarge image first
     final xlargeImage = multimedia!.firstWhere(
           (element) => element.subtype == 'xlarge',
       orElse: () => multimedia!.first,
@@ -53,7 +47,6 @@ extension ArticleMapper on Docs {
   }
 }
 
-// Extension on NewsResponse to easily convert all articles
 extension NewsResponseMapper on NewsResponse {
   List<Article> toArticles() {
     return response?.docs?.map((doc) => doc.toArticle()).toList() ?? [];

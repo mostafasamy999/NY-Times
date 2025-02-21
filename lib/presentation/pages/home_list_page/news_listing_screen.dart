@@ -47,13 +47,11 @@ class _NewsListingScreenState extends State<NewsListingScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // Implement search functionality
             },
           ),
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {
-              // Implement menu functionality
             },
           ),
         ],

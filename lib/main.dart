@@ -11,22 +11,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
-  // Initialize service locator for dependency injection
-  await ServiceLocator.init(); // Now this is correct with await
-
-  // Set up BLoC observer for debugging
-  // Bloc.observer = AppBlocObserver();
-
-  // Run the app
+  await ServiceLocator.init();
   runApp(const NyTimesApp());
 }
 

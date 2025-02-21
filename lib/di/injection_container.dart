@@ -10,18 +10,18 @@ final getIt = GetIt.instance;
 
 class ServiceLocator {
   static Future<void> init() async {
-    // Register API Service
+    //  Services
     getIt.registerLazySingleton<ApiService>(() => ApiService());
 
-    // Register Repositories
+    //  Repositories
     getIt.registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl(
       apiService: getIt<ApiService>(),
     ));
 
-    // Register Use Cases
+    //  Use Cases
     getIt.registerLazySingleton<GetNewsUseCase>(() => GetNewsUseCase(getIt<NewsRepository>()));
 
-    // Register Cubits
+    //  Cubits
     getIt.registerFactory<NewsCubit>(() => NewsCubit(
       getNewsUseCase: getIt<GetNewsUseCase>(),
     ));

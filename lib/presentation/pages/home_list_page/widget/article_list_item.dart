@@ -12,7 +12,6 @@ class ArticleListItem extends StatelessWidget {
     required this.article,
     required this.onTap,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -22,68 +21,86 @@ class ArticleListItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Article image
-            ClipOval(  // Changed from ClipRRect
-              child: article.imageUrl.isNotEmpty
-                  ? Image.network(
-                article.imageUrl,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  width: 60,
-                  height: 60,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.image, color: Colors.grey),
-                ),
-              )
-                  : Container(
-                width: 60,
-                height: 60,
-                color: Colors.grey[300],
-                child: const Icon(Icons.image, color: Colors.grey),
-              ),
-            ),
+            _buildArticleImage(),
             const SizedBox(width: 12),
-            // Article text content
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    article.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'By ${article.author}',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                      fontSize: 12,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    article.date,
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _buildArticleTextContent(),
             const Icon(Icons.chevron_right, color: Colors.grey),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildArticleImage() {
+    return ClipOval(
+      child: article.imageUrl.isNotEmpty
+          ? Image.network(
+        article.imageUrl,
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _buildPlaceholderImage(),
+      )
+          : _buildPlaceholderImage(),
+    );
+  }
+
+  Widget _buildPlaceholderImage() {
+    return Container(
+      width: 60,
+      height: 60,
+      color: Colors.grey[300],
+      child: const Icon(Icons.image, color: Colors.grey),
+    );
+  }
+
+  Widget _buildArticleTextContent() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTitleText(),
+          const SizedBox(height: 4),
+          _buildAuthorText(),
+          const SizedBox(height: 4),
+          _buildDateText(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTitleText() {
+    return Text(
+      article.title,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
+  Widget _buildAuthorText() {
+    return Text(
+      'By ${article.author}',
+      style: TextStyle(
+        color: Colors.grey[700],
+        fontSize: 12,
+      ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
+  Widget _buildDateText() {
+    return Text(
+      article.date,
+      style: TextStyle(
+        color: Colors.grey[500],
+        fontSize: 12,
+      ),
+    );
+  }
+
 }
