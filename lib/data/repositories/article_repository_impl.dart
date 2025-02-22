@@ -14,9 +14,7 @@ import '../models/article_model.dart';
 
 class NewsRepositoryImpl extends NewsRepository{
   final ApiService apiService;
-
   NewsRepositoryImpl({required this.apiService});
-
   @override
   Future<List<Article>> getPopularNews() async {
     try {

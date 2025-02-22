@@ -7,7 +7,7 @@ import '../models/article_model.dart';
 
 
 class ApiService {
-  Future<NewsResponse> getNews() async {//dynamic
+  Future<NewsResponse> getNews() async {
     try {
       final response = await http.get(
         Uri.parse(ApiConstants.getArticlesUrl('election', page: 3)),

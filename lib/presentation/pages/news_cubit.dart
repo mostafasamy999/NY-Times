@@ -6,11 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   final GetNewsUseCase getNewsUseCase;
-
   NewsCubit({required this.getNewsUseCase}) : super(NewsInitial()) {
     fetchNews();
   }
-
   Future<void> fetchNews() async {
     emit(NewsLoading());
     try {
